@@ -59,7 +59,8 @@ private:
 	float Radius = 20.0;
 	float Weight = 1.0;
 
-	float Scale = 0.65;
+	//float Scale = 0.65;
+	float Scale = 0.75;
 
 	class ICurveStrategy
 	{
@@ -368,7 +369,7 @@ public:
 
 				if(CntBranches.GetNumBranches() != 0)
 				{
-					Roots.push_back({node,NewRadius,Radius,false,Branch});
+					Roots.push_back({node,NewRadius,/*Radius*/NewRadius,false,Branch});
 					Roots.back().Junction->JunctionSphere.Center = node->GetPosition() + (NewRadius/1.5f)*Puszcsy.GetDirection();
 				}
 
