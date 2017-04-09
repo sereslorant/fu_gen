@@ -39,6 +39,8 @@ vec4 AverageVelocity(const vec4 &p0,const vec4 &p1,float t0,float t1);
 
 #include <vector>
 
+//#include <iostream>
+
 class CatmullRom : public ICurve
 {
 public:

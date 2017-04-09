@@ -78,7 +78,7 @@ void SegmentGenerator::GenerateTriangles()
 			unsigned int V3_TexCoord = I*(SegmentWidth + 1) + j;
 			unsigned int V4_TexCoord = I*(SegmentWidth + 1) + (j+1);
 			//
-			Triangle T1;
+			Mesh<vec4>::Triangle T1;
 			T1.VertexId[2] = V1_Id;
 			T1.VertexId[1] = V2_Id;
 			T1.VertexId[0] = V3_Id;
@@ -87,7 +87,7 @@ void SegmentGenerator::GenerateTriangles()
 			T1.TexCoordId[1] = V2_TexCoord;
 			T1.TexCoordId[0] = V3_TexCoord;
 			//
-			Triangle T2;
+			Mesh<vec4>::Triangle T2;
 			T2.VertexId[2] = V3_Id;
 			T2.VertexId[1] = V2_Id;
 			T2.VertexId[0] = V4_Id;

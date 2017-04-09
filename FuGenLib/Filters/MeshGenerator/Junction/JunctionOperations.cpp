@@ -3,8 +3,13 @@
 
 #include <list>
 
+//#include <chrono>
+//#include <iostream>
+
 void JunctionOperations::DeleteTriangles()
 {
+	//auto Before = std::chrono::steady_clock::now();
+	//
 	std::list<MyMesh::FaceIter> DeletableTriangles;
 	//
 	for(MyMesh::FaceIter F = JunctionMesh.faces_begin();F != JunctionMesh.faces_end();F++)
@@ -44,10 +49,16 @@ void JunctionOperations::DeleteTriangles()
 	}
 	//
 	JunctionMesh.garbage_collection();
+	//
+	//auto After = std::chrono::steady_clock::now();
+	//auto Difference = After - Before;
+	//std::cout << "Delete triangles time: " << std::chrono::duration<double,std::milli>(Difference).count() << std::endl;
 }
 
 void JunctionOperations::CollapseEdges()
 {
+	//auto Before = std::chrono::steady_clock::now();
+	//
 	for(MyMesh::VertexIter I = JunctionMesh.vertices_begin();I != JunctionMesh.vertices_end();I++)
 	{
 		auto &I_Data = JunctionMesh.data(I);
@@ -140,4 +151,8 @@ void JunctionOperations::CollapseEdges()
 	}
 	//
 	JunctionMesh.garbage_collection();
+	//
+	//auto After = std::chrono::steady_clock::now();
+	//auto Difference = After - Before;
+	//std::cout << "Collapse edges time: " << std::chrono::duration<double,std::milli>(Difference).count() << std::endl;
 }

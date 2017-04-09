@@ -1,7 +1,7 @@
 #ifndef JUNCTION_MESH_GENERATOR_H
 #define JUNCTION_MESH_GENERATOR_H
 
-#include "../../../Utils/Quickhull.h"
+#include <Data/MultiMesh.h>
 
 class JunctionMeshGenerator
 {

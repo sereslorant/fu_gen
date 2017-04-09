@@ -138,6 +138,7 @@ void DrawTexturedHalfedgeMesh(MyMesh &mesh)
 		{
 			auto &Data = mesh.data(*J);
 			OpenMesh::Vec3f Point = mesh.point(*J);
+			//std::cout << Point[0] << ";" << Point[1] << ";" << Point[2] << std::endl;
 
 			glTexCoord2f(Data.TexCoord[0],Data.TexCoord[1]);
 			glVertex3f(Point[0],Point[1],Point[2]);
@@ -260,7 +261,7 @@ void DrawMesh(const Mesh<vec4> &DrawableMesh)
 {
 	glBegin(GL_TRIANGLES);
 	//
-	for(const Triangle &T : DrawableMesh.Triangles)
+	for(const Mesh<vec4>::Triangle &T : DrawableMesh.Triangles)
 	{
 		const vec4 &Tex1 = DrawableMesh.TexCoords[T.TexCoordId[0]];
 		const vec4 &V1 = DrawableMesh.Vertices[T.VertexId[0]];

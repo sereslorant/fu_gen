@@ -556,7 +556,7 @@ public:
 		std::string Axiom = "A";
 
 		std::string Str = Axiom;
-		for(int i=0;i < 6;i++)
+		for(int i=0;i < 7;i++)
 		{
 			std::string Tmp;
 			Tree.ApplyProductions(Str,random_seed,Tmp);
@@ -899,7 +899,10 @@ void onInitialization()
 	glBindTexture(GL_TEXTURE_2D,0);
 
 	InitTexture();
-
+	
+	unsigned int TreeResX = 6;
+	unsigned int TreeResY = 6;
+	
 	DemoArray.push_back(new DrawQuadraticKochCurve);
 	DemoArray.push_back(new DrawDragonCurve);
 	DemoArray.push_back(new DrawRandomPlant(234));
@@ -912,17 +915,17 @@ void onInitialization()
 	DemoArray.push_back(new DrawHilbertCurve);
 	DemoArray.push_back(new DrawTreeSkeleton);
 	DemoArray.push_back(new DrawTreeHalfDone);
-	DemoArray.push_back(new DrawTreeFinished(6,6,TextureId));
-	DemoArray.push_back(new DrawTreeFinished(6,6,BarkTexId));
-	DemoArray.push_back(new DrawStochasticTreeFinished(0,6,6,BarkTexId));
-	DemoArray.push_back(new DrawStochasticTreeFinished(120,6,6,BarkTexId));
-	DemoArray.push_back(new DrawStochasticTreeFinished(340,6,6,BarkTexId));
-	DemoArray.push_back(new DrawStochasticTreeFinished(6340,6,6,BarkTexId));
-	DemoArray.push_back(new DrawStochasticTreeFinished(86645,6,6,BarkTexId));
-	DemoArray.push_back(new DrawStochasticTreeFinished(2332,6,6,BarkTexId));
-	DemoArray.push_back(new DrawStochasticTreeFinished(3246340,6,6,BarkTexId));
-	DemoArray.push_back(new DrawStochasticTreeFinished(23386645,6,6,BarkTexId));
-	DemoArray.push_back(new DrawStochasticTreeFinished(1122332,6,6,BarkTexId));
+	DemoArray.push_back(new DrawTreeFinished(TreeResX,TreeResY,TextureId));
+	DemoArray.push_back(new DrawTreeFinished(TreeResX,TreeResY,BarkTexId));
+	DemoArray.push_back(new DrawStochasticTreeFinished(0,TreeResX,TreeResY,BarkTexId));
+	DemoArray.push_back(new DrawStochasticTreeFinished(120,TreeResX,TreeResY,BarkTexId));
+	DemoArray.push_back(new DrawStochasticTreeFinished(340,TreeResX,TreeResY,BarkTexId));
+	DemoArray.push_back(new DrawStochasticTreeFinished(6340,TreeResX,TreeResY,BarkTexId));
+	DemoArray.push_back(new DrawStochasticTreeFinished(86645,TreeResX,TreeResY,BarkTexId));
+	DemoArray.push_back(new DrawStochasticTreeFinished(2332,TreeResX,TreeResY,BarkTexId));
+	DemoArray.push_back(new DrawStochasticTreeFinished(3246340,TreeResX,TreeResY,BarkTexId));
+	DemoArray.push_back(new DrawStochasticTreeFinished(23386645,TreeResX,TreeResY,BarkTexId));
+	DemoArray.push_back(new DrawStochasticTreeFinished(1122332,TreeResX,TreeResY,BarkTexId));
 	//
 	//GenerateLowPolyMesh::Anyad--;
 	//QuickhullNumSteps--;

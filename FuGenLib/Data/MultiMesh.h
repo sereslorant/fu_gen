@@ -3,11 +3,30 @@
 
 #include <glmath.hpp>
 
-struct Triangle
+#include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
+
+struct MyMeshTraits : public OpenMesh::DefaultTraits
 {
-	unsigned int VertexId[3] = {0,0,0};
-	unsigned int TexCoordId[3] = {0,0,0};
+	VertexAttributes(OpenMesh::Attributes::Status);
+	FaceAttributes(OpenMesh::Attributes::Status);
+	EdgeAttributes(OpenMesh::Attributes::Status);
+	//
+	VertexTraits
+	{
+	public:
+		vec4 TexCoord;
+		int SegmentId = -1;
+		unsigned int SampleId;
+		//
+		vec4 OtherTexCoord;
+		int OtherSegmentId = -1;
+		unsigned int OtherSampleId = 0;
+		//
+		bool Collapsed = false;
+	};
 };
+
+typedef OpenMesh::TriMesh_ArrayKernelT<MyMeshTraits> MyMesh;
 
 #include <vector>
 
@@ -16,6 +35,12 @@ struct Mesh
 {
 	std::vector<T_VertexData> Vertices;
 	std::vector<vec4> TexCoords;
+	//
+	struct Triangle
+	{
+		unsigned int VertexId[3] = {0,0,0};
+		unsigned int TexCoordId[3] = {0,0,0};
+	};
 	//
 	std::vector<Triangle> Triangles;
 	//
@@ -26,8 +51,6 @@ struct Mesh
 	~Mesh()
 	{}
 };
-
-#include "../Utils/Quickhull.h"
 
 #include <list>
 

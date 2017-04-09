@@ -4,30 +4,7 @@
 #include "../../Data/MultiMesh.h"
 
 #include "../../Utils/GeneralizedCylinder.h"
-/*
-class SegmentData
-{
-private:
-	GeneralizedCylinder Cylinder;
-	//
-	float t_Begin;
-	float t_End;
-	//
-public:
-	//
-	void GenerateVertices(unsigned int segment_width,unsigned int segment_height,Mesh<glm::vec3> &segment_mesh);
-	//
-	SegmentData(const GeneralizedCylinder &cylinder,float t_begin,float t_end)
-		:Cylinder(cylinder),t_Begin(t_begin),t_End(t_end)
-	{}
-	//
-	~SegmentData()
-	{}
-	/*
-	 * End of class
-	 * /
-};
-*/
+
 class SegmentGenerator
 {
 private:

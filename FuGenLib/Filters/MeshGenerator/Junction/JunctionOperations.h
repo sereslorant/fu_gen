@@ -1,7 +1,7 @@
 #ifndef JUNCTION_OPERATIONS_H
 #define JUNCTION_OPERATIONS_H
 
-#include "../../../Utils/Quickhull.h"
+#include <Data/MultiMesh.h>
 
 class JunctionOperations
 {

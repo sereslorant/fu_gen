@@ -9,7 +9,7 @@
 #include <Const.h>
 
 #include <Utils/GeneralizedCylinder.h>
-#include <Utils/Quickhull.h>
+#include <Filters/MeshGenerator/Junction/Quickhull/OMQuickhull.h>
 
 void DrawSpline(const ICurve &curve,float t_begin,float t_end,float dt);
 

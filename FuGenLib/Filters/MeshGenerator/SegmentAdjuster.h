@@ -1,7 +1,7 @@
 #ifndef SEGMENT_ADJUSTER_H
 #define SEGMENT_ADJUSTER_H
 
-#include "../../Utils/Quickhull.h"
+#include <Data/MultiMesh.h>
 
 class SegmentAdjuster
 {

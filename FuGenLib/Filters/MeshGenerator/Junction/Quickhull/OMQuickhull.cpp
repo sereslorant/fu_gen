@@ -1,7 +1,6 @@
 
-#include "Quickhull.h"
+#include "OMQuickhull.h"
 
-#include <list>
 #include <iostream>
 
 struct VertexHandleArrayElement
@@ -12,7 +11,7 @@ struct VertexHandleArrayElement
 	MyMesh::VertexHandle Handle;
 };
 
-struct Triangle
+struct QuickhullTriangle
 {
 	unsigned int V[3] = {0,0,0};
 };
@@ -49,7 +48,7 @@ void QuickhullEraseMaxId(unsigned int ids[],unsigned int num_ids,unsigned int ma
 	}
 }
 
-vec4 GetNormal(VertexData vertices[],const Triangle &triangle)
+vec4 GetNormal(VertexData vertices[],const QuickhullTriangle &triangle)
 {
 	vec4 Cross = cross(vertices[triangle.V[1]].Vertex - vertices[triangle.V[0]].Vertex,vertices[triangle.V[2]].Vertex - vertices[triangle.V[0]].Vertex);
 	Cross = normalize(Cross);
@@ -64,7 +63,7 @@ vec4 GetNormal(MyMesh &convex_hull,MyMesh::FaceHandle &triangle)
     return -1.0f*vec4(Normal[0],Normal[1],Normal[2]);
 }
 
-unsigned int QuickhullFindMaxFromTriangle(VertexData vertices[],const Triangle &triangle,unsigned int ids[],unsigned int num_ids)
+unsigned int QuickhullFindMaxFromTriangle(VertexData vertices[],const QuickhullTriangle &triangle,unsigned int ids[],unsigned int num_ids)
 {
 	vec4 Cross = GetNormal(vertices,triangle);
 
@@ -125,7 +124,7 @@ void QuickhullInit(VertexData vertices[],unsigned int num_vertices,std::vector<V
 
 	unsigned int SelectedPoints[4];
 
-	Triangle Tri[4];
+	QuickhullTriangle Tri[4];
 	if(Puszcsy == 0)
 	{
 		BaselinePoint = vertices[MaxX].Vertex;

@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 2.8)
 project(FuGen)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11")
+set(CMAKE_CXX_STANDARD 11)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 
 #The source of OpenMesh, SOIL and GLM should be placed into the Dependencies folder.
 #For more info see the ./Dependencies/CMakeLists.txt file
 set(DEPENDENCY_DIR			"./Dependencies")
-set(OPEN_MESH_INCLUDE_DIR	"${DEPENDENCY_DIR}/OpenMesh-5.1/src")
 
 set(FU_GEN_LIB_DIR "./FuGenLib")
 

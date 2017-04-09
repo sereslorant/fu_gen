@@ -1,10 +1,10 @@
 
-#include "JunctionGenerator.h"
+#include "OMJunctionGenerator.h"
 
-#include "../../../Const.h"
-#include "../../../Utils/GeneralizedCylinder.h"
-
-void JunctionGenerator::SampleSegmentBoundary(const TreeHypergraph::Branch &branch,float t,unsigned int sample_id_begin,VertexData destination[])
+#include <Const.h>
+#include <Utils/GeneralizedCylinder.h>
+/*
+void OMJunctionGenerator::SampleSegmentBoundary(const TreeHypergraph::Branch &branch,float t,unsigned int sample_id_begin,VertexData destination[])
 {
 	GeneralizedCylinder BranchCylinder(*branch.Curve,branch.Up,branch.Width);
 	float dAngle = 2.0 * PI / SegmentWidth;
@@ -20,8 +20,8 @@ void JunctionGenerator::SampleSegmentBoundary(const TreeHypergraph::Branch &bran
 		destination[i].SampleId = sample_id_begin + i;
 	}
 }
-
-void JunctionGenerator::SampleJunction()
+*/
+void OMJunctionGenerator::SampleJunction()
 {
 	unsigned int NumVertices = Junction.Children.size()*SegmentWidth;
 	//
