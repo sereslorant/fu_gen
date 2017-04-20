@@ -1,10 +1,25 @@
 #ifndef FUGENGLVIEW_H
 #define FUGENGLVIEW_H
 
-#include <QtWidgets/QOpenGLWidget>
-#include <QtGui/QOpenGLContext>
 
-#include "GLDrawable.h"
+#include "GL/GLEdgeVisualizer.h"
+
+#include <QtWidgets/QOpenGLWidget>
+
+class IGLViewListener
+{
+public:
+	virtual void OnInitialization() = 0;
+	//
+	IGLViewListener()
+	{}
+	//
+	virtual ~IGLViewListener()
+	{}
+	/*
+	 * End of class
+	 */
+};
 
 class FuGenGLView : public QOpenGLWidget
 {
@@ -14,22 +29,27 @@ private:
 	int width;
 	int height;
 	//
-	GLuint VertexShader;
-	GLuint FragmentShader;
+	GLEdgeVisualizer EdgeVisualizer;
 	//
-	GLuint Program;
-	//
-	//GLuint VAO;
-	//GLuint VBO;
-	GLTriangleList *TriangleList;
-	GLLineStrip	*LineStrip;
+	IGLViewListener *Listener = nullptr;
 	//
 protected:
 	//
 	virtual void initializeGL() override;
     virtual void resizeGL(int width, int height) override;
     virtual void paintGL() override;
+	//
 public:
+	//
+	void AddListener(IGLViewListener *listener)
+	{
+		Listener = listener;
+	}
+	//
+	GLEdgeVisualizer &GetEdgeVisualizer()
+	{
+		return EdgeVisualizer;
+	}
 	//
 	virtual QSize minimumSizeHint() const override
 	{

@@ -20,4 +20,5 @@ set(FU_GEN_SRC	"${FU_GEN_SRC_DIR}/Filters/L_Systems/SOL_System.cpp"
 find_package(Threads)
 
 add_library(FuGenLib ${FU_GEN_SRC})
+#target_link_libraries(FuGenLib ${CMAKE_THREAD_LIBS_INIT} OpenMeshCoreStatic)
 target_link_libraries(FuGenLib ${CMAKE_THREAD_LIBS_INIT} OpenMeshCore)

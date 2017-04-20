@@ -111,6 +111,26 @@ public:
 			Velocity[Velocity.size()-2] = (AverageVelocity(Pprev2,Pprev1,tprev2,tprev1) + AverageVelocity(Pprev1,Pfin,tprev1,tfin)) / 2.0f;
 		}
 	}
+	
+	virtual unsigned int GetNumControlPoints() const override
+	{
+		return cps.size();
+	}
+	
+	virtual const vec4 &GetCtrlPosition(unsigned int id) const override
+	{
+		return cps[id];
+	}
+
+	virtual const vec4 &GetCtrlDerivative(unsigned int id) const override
+	{
+		return Velocity[id];
+	}
+
+	virtual float GetCtrlParameter(unsigned int id) const override
+	{
+		return ts[id];
+	}
 
 	virtual vec4 GetPoint(float t) const override
 	{

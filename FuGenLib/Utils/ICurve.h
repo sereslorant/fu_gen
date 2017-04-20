@@ -6,6 +6,12 @@
 class ICurve
 {
 public:
+	
+	virtual unsigned int GetNumControlPoints() const = 0;
+
+	virtual const vec4 &GetCtrlPosition(unsigned int id) const = 0;
+	virtual const vec4 &GetCtrlDerivative(unsigned int id) const = 0;
+	virtual float GetCtrlParameter(unsigned int id) const = 0;
 
 	virtual vec4 GetPoint(float t) const = 0;
 	virtual vec4 GetDerivative(float t) const = 0;
