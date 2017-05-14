@@ -4,6 +4,7 @@ set(FU_GEN_SRC_DIR "./")
 set(FU_GEN_SRC	"${FU_GEN_SRC_DIR}/Filters/L_Systems/SOL_System.cpp"
 				"${FU_GEN_SRC_DIR}/Filters/Turtles/Turtle2D.cpp"
 				"${FU_GEN_SRC_DIR}/Filters/Turtles/Turtle3D.cpp"
+				"${FU_GEN_SRC_DIR}/Filters/HypergraphGenerator/GenerateHypergraph.cpp"
 				"${FU_GEN_SRC_DIR}/Filters/MeshGenerator/SegmentGenerator.cpp"
 				"${FU_GEN_SRC_DIR}/Filters/MeshGenerator/Junction/Quickhull/OMQuickhull.cpp"
 				"${FU_GEN_SRC_DIR}/Filters/MeshGenerator/Junction/Quickhull/QhMesh.cpp"

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MeshNodeEditor</class>
+ <widget class="QWidget" name="MeshNodeEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>246</width>
+    <height>114</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLineEdit" name="SegmentWidth">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>20</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="SegmentHeight">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>60</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Segment Width</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>101</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Segment Height</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>SegmentWidth</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MeshNodeEditor</receiver>
+   <slot>SegmentWidthChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>176</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SegmentWidth</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MeshNodeEditor</receiver>
+   <slot>SegmentHeightChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>176</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>SegmentWidthChanged()</slot>
+  <slot>SegmentHeightChanged()</slot>
+ </slots>
+</ui>

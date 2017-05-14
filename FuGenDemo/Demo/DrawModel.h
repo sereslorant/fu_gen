@@ -16,6 +16,9 @@ void DrawSpline(const ICurve &curve,float t_begin,float t_end,float dt);
 constexpr unsigned int CYLINDER_ARRAY_WIDTH = 6;
 constexpr unsigned int CYLINDER_ARRAY_HEIGHT = 6;
 
+//constexpr unsigned int CYLINDER_ARRAY_WIDTH = 20;
+//constexpr unsigned int CYLINDER_ARRAY_HEIGHT = 20;
+
 void DrawGeneralizedCylinder(const GeneralizedCylinder &cylinder,float t0,float t_fin);
 
 void DrawHalfedgeMesh(MyMesh &mesh);

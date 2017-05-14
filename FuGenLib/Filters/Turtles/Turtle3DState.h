@@ -95,8 +95,9 @@ struct Turtle3DState
 		Direction_U = dvec4(Direction[0],Direction[1],Direction[2]);
 	}
 	//
-	Turtle3DState(const dvec4 &direction_h,const dvec4 &direction_l)
+	Turtle3DState(const dvec4 &position,const dvec4 &direction_h,const dvec4 &direction_l)
 	{
+		Position = position;
 		Direction_H = normalize(direction_h);
 		Direction_L = normalize(direction_l);
 		Direction_U = normalize(cross(direction_h,direction_l));

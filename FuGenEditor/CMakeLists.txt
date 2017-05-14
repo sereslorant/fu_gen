@@ -20,10 +20,24 @@ set(FuGenPipelineEditor_SRC	View/PipelineEditor/FuGenPipelineNode.cpp
 							View/PipelineEditor/FuGenPipelineEditor.cpp
 							)
 
-set(FuGenEditor_SRCS View/FuGenWindow.cpp ${FuGenEdgeVisualizer_SRC} ${FuGenPipelineEditor_SRC})
+set(FuGenNodeEditor_SRC	View/NodeEditor/FuGenNodeEditor.cpp
+						View/NodeEditor/TurtleNodeEditor.cpp
+						View/NodeEditor/HypergraphNodeEditor.cpp
+						View/NodeEditor/MeshNodeEditor.cpp
+						)
+
+set(FuGenEditor_SRCS	View/FuGenWindow.cpp
+						${FuGenEdgeVisualizer_SRC}
+						${FuGenPipelineEditor_SRC}
+						${FuGenNodeEditor_SRC}
+						)
 
 
 add_executable(FuGenEditor ${FuGenEditor_SRCS} View/FuGenMain.cpp)
-target_link_libraries(FuGenEditor ${Qt5Core_LIBRARIES} ${Qt5OpenGL_LIBRARIES} ${OPENGL_LIBRARIES})
+target_link_libraries(FuGenEditor ${Qt5Core_LIBRARIES} ${Qt5OpenGL_LIBRARIES} ${OPENGL_LIBRARIES} FuGenPresenter)
+
+add_subdirectory(Presenter)
+
+
 
 add_subdirectory(Test)

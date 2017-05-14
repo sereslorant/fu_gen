@@ -1,10 +1,9 @@
 #ifndef GLVIEWTEST_H
 #define GLVIEWTEST_H
 
-#include <Data/TreeSkeleton.h>
-
-#include <Presenter/TreeHypergraphPresenter.h>
-#include <Presenter/TreeMeshPresenter.h>
+#include <Presenter/Data/TreeSkeletonPresenter.h>
+#include <Presenter/Data/TreeHypergraphPresenter.h>
+#include <Presenter/Data/TreeMeshPresenter.h>
 
 #include <View/EdgeVisualizer/FuGenGLView.h>
 
@@ -21,14 +20,18 @@ private:
 	private:
 		GLViewTest &ViewTest;
 	public:
-		virtual void OnInitialization()
+		virtual void OnInitialization() override
 		{
 			ViewTest.TestView();
 		}
 		//
+		virtual void OnDraw() override
+		{}
+		//
 		GLViewListener(GLViewTest &view_test)
 			:ViewTest(view_test)
 		{}
+		//
 		virtual ~GLViewListener()
 		{}
 		/*
@@ -36,21 +39,23 @@ private:
 		 */
 	};
 	//
-	TreeNode *TestGraph = nullptr;;
-	TreeHypergraph TestHypergraph;
-	MultiMesh TestMesh;
+	TreeNode *TestSkeleton = nullptr;
+	TreeSkeletonPresenter TestSkeletonPresenter;
 	//
+	TreeHypergraph TestHypergraph;
 	TreeHypergraphPresenter TestHypergraphPresenter;
+    //
+	MultiMesh *TestMesh;
 	TreeMeshPresenter TestMeshPresenter;
 	//
 	FuGenGLView *GLView;
 	//
 	GLViewListener ViewListener;
+    //
+    bool ShowSplines = true;
+    bool ShowCylinders = true;
 	//
-	void CreateTestGraph()
-	{
-		//
-	}
+	void CreateTestSkeleton();
 	//
 	void CreateTestHypergraph();
 	//
@@ -64,31 +69,37 @@ protected:
 		//
 		if(key_event->key() == Qt::Key_1)
 		{
-			//std::cout << "TODO" << std::endl;
+			GLView->GetEdgeVisualizer().ChooseSkeleton();
+			GLView->GetEdgeVisualizer().GetSkeletonRenderer().SetDrawable(&(TestSkeletonPresenter.GetDrawableList()));
+			GLView->update();
 		}
 		//
 		if(key_event->key() == Qt::Key_2)
 		{
 			GLView->GetEdgeVisualizer().ChooseHypergraph();
-			update();
+			GLView->GetEdgeVisualizer().GetHypergraphRenderer().SetDrawable(&(TestHypergraphPresenter.GetDrawableList()));
+			GLView->update();
 		}
 		//
 		if(key_event->key() == Qt::Key_3)
 		{
 			GLView->GetEdgeVisualizer().ChooseMesh();
-			update();
+			GLView->GetEdgeVisualizer().GetMeshRenderer().SetDrawable(&(TestMeshPresenter.GetDrawableList()));
+			GLView->update();
 		}
 		//
 		if(key_event->key() == Qt::Key_Q)
 		{
-			GLView->GetEdgeVisualizer().GetHypergraphRenderer().SwitchSplines();
-			update();
+            ShowSplines = !ShowSplines;
+			GLView->GetEdgeVisualizer().SetShowSplines(ShowSplines);
+			GLView->update();
 		}
 		//
 		if(key_event->key() == Qt::Key_W)
 		{
-			GLView->GetEdgeVisualizer().GetHypergraphRenderer().SwitchClyinders();
-			update();
+            ShowCylinders = !ShowCylinders;
+			GLView->GetEdgeVisualizer().SetShowCylinders(ShowCylinders);
+			GLView->update();
 		}
 	}
 	//
@@ -96,15 +107,20 @@ public:
 	//
 	void TestView()
 	{
+		CreateTestSkeleton();
+		//
+		TestSkeletonPresenter.SetShaderProgram(&GLView->GetEdgeVisualizer().GetSkeletonShaderProgram());
+		TestSkeletonPresenter.OnChanged(TestSkeleton);
+		//
 		CreateTestHypergraph();
 		//
-		TestHypergraphPresenter.SetPrimitiveRenderer(&GLView->GetEdgeVisualizer().GetHypergraphRenderer(),&GLView->GetEdgeVisualizer().GetHypergraphRenderer().GetCatmullRomRenderer());
+		TestHypergraphPresenter.SetShaderProgram(&GLView->GetEdgeVisualizer().GetHypergraphShaderProgram());
 		TestHypergraphPresenter.OnChanged(&TestHypergraph);
 		//
 		CreateTestMesh();
 		//
-		TestMeshPresenter.SetMeshRenderer(&GLView->GetEdgeVisualizer().GetMeshRenderer(),&GLView->GetEdgeVisualizer().GetMeshShaderProgram());
-		TestMeshPresenter.OnChanged(&TestMesh);
+		TestMeshPresenter.SetShaderProgram(&GLView->GetEdgeVisualizer().GetMeshShaderProgram());
+		TestMeshPresenter.OnChanged(TestMesh);
 	}
 	//
 	GLViewTest();

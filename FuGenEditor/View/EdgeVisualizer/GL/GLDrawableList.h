@@ -3,6 +3,8 @@
 
 #include "GLPrimitiveList.h"
 
+#include <list>
+
 class GLDrawableList : public IGLDrawableList
 {
 private:
@@ -29,7 +31,9 @@ public:
 	{
 		for(const IGLDrawable *Drawable : Drawables)
 		{
+			std::cout << "Before drawable: " << glGetError() << std::endl;
 			Drawable->Draw(renderer);
+			std::cout << "After drawable: " << glGetError() << std::endl;
 		}
 	}
 	//

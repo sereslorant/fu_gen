@@ -3,6 +3,7 @@ project(FuGen)
 
 set(CMAKE_CXX_STANDARD 11)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 
 #The source of OpenMesh, SOIL and GLM should be placed into the Dependencies folder.

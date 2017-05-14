@@ -6,52 +6,52 @@
 class GLSimpleInputFormatStrategy
 {
 public:
-	static void SetShaderInputFormat(GLuint program)
+	static void SetShaderInputFormat(IGLShaderProgram &renderer)
 	{
-		glEnableVertexAttribArray(glGetAttribLocation(program,"Position"));
-		glVertexAttribPointer(glGetAttribLocation(program,"Position"),3,GL_FLOAT,GL_FALSE,sizeof(vec4),nullptr);
+		glEnableVertexAttribArray(renderer.GetAttribLocation("Position"));
+		glVertexAttribPointer(renderer.GetAttribLocation("Position"),3,GL_FLOAT,GL_FALSE,sizeof(vec4),nullptr);
 	}
 };
 
-class GLTriangleList : public GLPrimitiveList<GLSimpleInputFormatStrategy>
+class GLTriangleFan : public GLPrimitiveList<GLSimpleInputFormatStrategy>
 {
 protected:
 	//
-	virtual void DrawCall() const override
+	virtual void DrawCall(IGLShaderProgram &renderer) const override
 	{
-		glDrawArrays(GL_TRIANGLES,0,NumVertices);
+		glDrawArrays(GL_TRIANGLE_FAN,0,NumVertices);
 	}
 	//
 public:
 	//
-	GLTriangleList(vec4 vertex_array[],unsigned int num_triangles,GLuint program)
-		:GLPrimitiveList(vertex_array,num_triangles * 3,program)
+	GLTriangleFan(void *vertex_array,unsigned int num_vertices,IGLShaderProgram &program)
+		:GLPrimitiveList(vertex_array,num_vertices,sizeof(vec4),program)
 	{
 		//
 	}
 	//
-	virtual ~GLTriangleList() override
+	virtual ~GLTriangleFan() override
 	{}
 };
 
-class GLLineStrip : public GLPrimitiveList<GLSimpleInputFormatStrategy>
+class GLLineList : public GLPrimitiveList<GLSimpleInputFormatStrategy>
 {
 protected:
 	//
-	virtual void DrawCall() const override
+	virtual void DrawCall(IGLShaderProgram &renderer) const override
 	{
-		glDrawArrays(GL_LINE_STRIP,0,NumVertices);
+		glDrawArrays(GL_LINES,0,NumVertices);
 	}
 	//
 public:
 	//
-	GLLineStrip(vec4 vertex_array[],unsigned int num_vertices,GLuint program)
-		:GLPrimitiveList(vertex_array,num_vertices,program)
+	GLLineList(void *vertex_array,unsigned int num_vertices,IGLShaderProgram &program)
+		:GLPrimitiveList(vertex_array,num_vertices,sizeof(vec4),program)
 	{
 		//
 	}
 	//
-	virtual ~GLLineStrip() override
+	virtual ~GLLineList() override
 	{}
 };
 

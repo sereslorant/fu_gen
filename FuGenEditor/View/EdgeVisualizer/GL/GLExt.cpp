@@ -39,13 +39,13 @@ void InitGL(const QOpenGLContext *context)
 	glBindBuffer = (PFNGLBINDBUFFERPROC)context->getProcAddress("glBindBuffer");
 	glBufferData = (PFNGLBUFFERDATAPROC)context->getProcAddress("glBufferData");
 	glDeleteBuffers = (PFNGLDELETEBUFFERSPROC)context->getProcAddress("glDeleteBuffers");
-	
+	//
 	glGenVertexArrays = (PFNGLGENVERTEXARRAYSPROC)context->getProcAddress("glGenVertexArrays");
 	glBindVertexArray = (PFNGLBINDVERTEXARRAYPROC)context->getProcAddress("glBindVertexArray");
 	glEnableVertexAttribArray = (PFNGLENABLEVERTEXATTRIBARRAYPROC)context->getProcAddress("glEnableVertexAttribArray");
 	glVertexAttribPointer = (PFNGLVERTEXATTRIBPOINTERPROC)context->getProcAddress("glVertexAttribPointer");
 	glDeleteVertexArrays = (PFNGLDELETEVERTEXARRAYSPROC)context->getProcAddress("glDeleteVertexArrays");
-	
+	//
 	glCreateShader = (PFNGLCREATESHADERPROC)context->getProcAddress("glCreateShader");
 	glShaderSource = (PFNGLSHADERSOURCEPROC)context->getProcAddress("glShaderSource");
 	glCompileShader = (PFNGLCOMPILESHADERPROC)context->getProcAddress("glCompileShader");
@@ -60,9 +60,9 @@ void InitGL(const QOpenGLContext *context)
 	glLinkProgram = (PFNGLLINKPROGRAMPROC)context->getProcAddress("glLinkProgram");
 	glUseProgram = (PFNGLUSEPROGRAMPROC)context->getProcAddress("glUseProgram");
 	glDeleteProgram = (PFNGLDELETEPROGRAMPROC)context->getProcAddress("glDeleteProgram");
-	
+	//
 	glGetUniformLocation = (PFNGLGETUNIFORMLOCATIONPROC)context->getProcAddress("glGetUniformLocation");
 	glGetAttribLocation = (PFNGLGETATTRIBLOCATIONPROC)context->getProcAddress("glGetAttribLocation");
-	
+	//
 	glUniform1f = (PFNGLUNIFORM1FPROC)context->getProcAddress("glUniform1f");
 }

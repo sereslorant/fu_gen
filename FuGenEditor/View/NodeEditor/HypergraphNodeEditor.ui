@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HypergraphNodeEditor</class>
+ <widget class="QWidget" name="HypergraphNodeEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>230</width>
+    <height>210</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLineEdit" name="Radius">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>10</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>59</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Radius</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>91</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Radius decay</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="RadiusDecay">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>50</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>91</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Parent weight</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="InitSpeed">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>130</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>91</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Initial speed</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="EndSpeed">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>170</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>170</y>
+     <width>91</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>End speed</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="ParentWeight">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>90</y>
+     <width>111</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+   <property name="singleStep">
+    <number>0</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>Radius</sender>
+   <signal>editingFinished()</signal>
+   <receiver>HypergraphNodeEditor</receiver>
+   <slot>RadiusChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>25</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>114</x>
+     <y>104</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>RadiusDecay</sender>
+   <signal>editingFinished()</signal>
+   <receiver>HypergraphNodeEditor</receiver>
+   <slot>RadiusDecayChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>65</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>114</x>
+     <y>104</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>InitSpeed</sender>
+   <signal>editingFinished()</signal>
+   <receiver>HypergraphNodeEditor</receiver>
+   <slot>InitialSpeedChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>114</x>
+     <y>104</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>EndSpeed</sender>
+   <signal>editingFinished()</signal>
+   <receiver>HypergraphNodeEditor</receiver>
+   <slot>EndSpeedChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>306</x>
+     <y>155</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>114</x>
+     <y>104</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ParentWeight</sender>
+   <signal>sliderPressed()</signal>
+   <receiver>HypergraphNodeEditor</receiver>
+   <slot>ParentWeightChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>165</x>
+     <y>99</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>114</x>
+     <y>104</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>RadiusChanged()</slot>
+  <slot>RadiusDecayChanged()</slot>
+  <slot>ParentWeightChanged()</slot>
+  <slot>InitialSpeedChanged()</slot>
+  <slot>EndSpeedChanged()</slot>
+ </slots>
+</ui>

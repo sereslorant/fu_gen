@@ -37,8 +37,8 @@ protected:
 	//
 public:
 	//
-	GLCatmullRom(vec4 vertex_array[],unsigned int num_vertices,IGLShaderProgram &renderer)
-		:GLPrimitiveList(vertex_array,num_vertices,renderer)
+	GLCatmullRom(void *vertex_array,unsigned int num_vertices,IGLShaderProgram &renderer)
+		:GLPrimitiveList(vertex_array,num_vertices,sizeof(CR_VertexData),renderer)
 	{
 		//
 	}

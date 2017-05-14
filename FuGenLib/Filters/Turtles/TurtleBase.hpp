@@ -12,14 +12,24 @@ protected:
 	//
 public:
 	//
+	void Set_dDist(Scalar_T d_dist)
+	{
+		dDist = d_dist;
+	}
+	//
 	void Set_dAngle(Scalar_T d_angle)
 	{
 		dAngle = d_angle;
 	}
 	//
-	void Set_dDist(Scalar_T d_dist)
+	Scalar_T Get_dDist()
 	{
-		dDist = d_dist;
+		return dDist;
+	}
+	//
+	Scalar_T Get_dAngle()
+	{
+		return dAngle;
 	}
 	//
 	TurtleBase(Scalar_T d_dist,Scalar_T d_angle,const TurtleState_T &initial_state)

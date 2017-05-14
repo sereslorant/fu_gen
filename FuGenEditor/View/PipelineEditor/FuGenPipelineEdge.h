@@ -14,6 +14,21 @@ public:
 	{}
 };
 
+class FuGenPipelineEdge;
+
+class IPipelineEdgeModel
+{
+public:
+	//
+	virtual void SetPipelineEdge(FuGenPipelineEdge *pipeline_edge) = 0;
+	//
+	IPipelineEdgeModel()
+	{}
+	//
+	virtual ~IPipelineEdgeModel()
+	{}
+};
+
 #include <QGraphicsLineItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
@@ -68,12 +83,12 @@ private:
 			:Edge(edge),IsBegin(is_begin)
 		{
 			end_point->AddListener(this);
-			std::cout << "Created " << this << std::endl;
+			//std::cout << "Created " << this << std::endl;
 		}
 		//
 		virtual ~EndpointListener() override
 		{
-			std::cout << "Deleted " << this << std::endl;
+			//std::cout << "Deleted " << this << std::endl;
 		}
 	};
 	//
@@ -82,6 +97,8 @@ private:
 	//
 	EndpointListener BeginListener;
 	EndpointListener EndListener;
+	//
+	IPipelineEdgeModel *EdgeModel;
 	//
 	void NotifyEndpointDeleted()
 	{
@@ -114,6 +131,17 @@ protected:
 	virtual void paint(QPainter *painter,const QStyleOptionGraphicsItem *option,QWidget *widget) override;
 	//
 public:
+	//
+	void SetModel(IPipelineEdgeModel *new_model)
+	{
+		EdgeModel = new_model;
+		EdgeModel->SetPipelineEdge(this);
+	}
+	//
+	IPipelineEdgeModel *GetModel()
+	{
+		return EdgeModel;
+	}
 	//
 	void AddListener(IPipelineEdgeListener *new_listener)
 	{

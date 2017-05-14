@@ -3,7 +3,50 @@
 
 #include "ui_GLViewTest.h"
 
+#include <Filters/L_Systems/DOL_System.h>
+#include <Filters/Turtles/TurtleInterpreter.h>
+#include <Filters/Turtles/Turtle3D.h>
+
 #include <Filters/MeshGenerator/LowPolyMeshGenerator.h>
+
+void GLViewTest::CreateTestSkeleton()
+{
+	DOL_System Tree;
+	//
+	Tree.AddProduction('A',DOL_Production("[&FL!A]/////’[&FL!A]///////’[&FL!A]"));
+	Tree.AddProduction('F',DOL_Production("S ///// F"));
+	Tree.AddProduction('S',DOL_Production("F L"));
+	Tree.AddProduction('L',DOL_Production("[’’’^^{.-f.+f.+f.-|-f.+f.+f.}]"));
+	//
+	std::string Axiom = "A";
+	//
+	std::string Str = Axiom;
+	for(int i=0;i < 5;i++)
+	{
+		std::string Tmp;
+		Tree.ApplyProductions(Str,Tmp);
+		Str = Tmp;
+	}
+	//
+	Turtle3D Turtle(vec4(5.0,0.0,0.0),vec4(0.0,0.0,1.0),vec4(1.0,0.0,0.0),0.0,0.0);
+	TurtleInterpreter Turtle3DInterpreter(IsTurtle3DCommand);
+	char From3D[14]	= {'F','f','^','&','+','-','\\','/','|','[',']','{','}','.'};
+	char To3D[14]	= {'F','f','(',')','<','>','+' ,'-','|','[',']','{','}','.'};
+	//
+	for(int i=0;i < 14;i++)
+	{
+		Turtle3DInterpreter.AddInterpretation(From3D[i],To3D[i]);
+	}
+	//
+	constexpr double PI = 3.14159265359;
+	Turtle.Set_dAngle(PI/2.0*0.25);
+	Turtle.Set_dDist(1.0);
+	//
+	std::string Command;
+	Turtle3DInterpreter.Convert(Str,Command);
+	//
+	Turtle.ExecuteCommands(Command,TestSkeleton);
+}
 
 void GLViewTest::CreateTestHypergraph()
 {
@@ -101,7 +144,8 @@ GLViewTest::GLViewTest()
 
 GLViewTest::~GLViewTest()
 {
-	delete TestGraph;
+	delete TestSkeleton;
+	delete TestMesh;
 }
 
 #include "GLViewTest.moc"

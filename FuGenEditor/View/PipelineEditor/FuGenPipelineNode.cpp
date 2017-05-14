@@ -49,7 +49,11 @@ void FuGenPipelineNode::paint(QPainter *painter,const QStyleOptionGraphicsItem *
 {
 	QGraphicsEllipseItem::paint(painter,option,widget);
 	//
-	painter->drawText(rect(),Qt::AlignCenter | Qt::TextWordWrap,NodeLabel);
+	if(NodeModel != nullptr)
+	{
+		QString NodeLabel = QString(NodeModel->GetName().c_str());
+		painter->drawText(rect(),Qt::AlignCenter | Qt::TextWordWrap,NodeLabel);
+	}
 }
 
 /*

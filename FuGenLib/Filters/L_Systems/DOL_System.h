@@ -12,9 +12,14 @@ private:
 	//
 public:
 	//
-	const std::string &GetSuccessor()
+	const std::string &GetSuccessor() const
 	{
 		return Successor;
+	}
+	//
+	void SetSuccessor(const std::string &successor)
+	{
+		Successor = successor;
 	}
 	//
 	DOL_Production()

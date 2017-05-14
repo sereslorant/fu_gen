@@ -26,7 +26,7 @@
 #include <Filters/Turtles/Turtle3D.h>
 #include <Filters/Turtles/TurtleInterpreter.h>
 
-#include <Filters/GenerateHypergraph.h>
+#include <Filters/HypergraphGenerator/GenerateHypergraph.h>
 #include <Filters/MeshGenerator/LowPolyMeshGenerator.h>
 
 #include <SOIL/SOIL.h>
@@ -248,7 +248,7 @@ public:
 		std::string Axiom = "+++F";
 
 		std::string Str = Axiom;
-		for(int i=0;i < 8;i++)
+		for(int i=0;i < 5;i++)
 		{
 			std::string Tmp;
 			RandomPlant.ApplyProductions(Str,random_seed,Tmp);
@@ -354,7 +354,7 @@ protected:
 public:
 
 	Demo3D()
-		:Turtle(vec4(1.0,0.0,0.0),vec4(0.0,1.0,0.0),0.0,0.0),Turtle3DInterpreter(IsTurtle3DCommand)
+		:Turtle(vec4(0.0,0.0,0.0),vec4(1.0,0.0,0.0),vec4(0.0,1.0,0.0),0.0,0.0),Turtle3DInterpreter(IsTurtle3DCommand)
 	{
 		char From3D[14]	= {'F','f','^','&','+','-','\\','/','|','[',']','{','}','.'};
 		char To3D[14]	= {'F','f','(',')','<','>','+' ,'-','|','[',']','{','}','.'};
@@ -453,8 +453,10 @@ public:
 
 		std::string Axiom = "A";
 
+		auto Before = std::chrono::steady_clock::now();
+
 		std::string Str = Axiom;
-		for(int i=0;i < 7;i++)
+		for(int i=0;i < 4;i++)
 		{
 			std::string Tmp;
 			Tree.ApplyProductions(Str,Tmp);
@@ -471,9 +473,20 @@ public:
 		//std::cout << Command << std::endl;
 
 		Turtle.ExecuteCommands(Command,TreeSkeleton);
+		
+		
+		auto After = std::chrono::steady_clock::now();
+		auto Difference = After - Before;
+		std::cout << "Turtle time: " << std::chrono::duration<double,std::milli>(Difference).count() << std::endl;
 
-		GenerateHypergraph DrawSkel;
+		Before = std::chrono::steady_clock::now();
+
+		GenerateHypergraph DrawSkel(20.0,0.75,0.75,10.0,5.0);
 		DrawSkel.Draw(TreeSkeleton,Hypergraph);
+
+		After = std::chrono::steady_clock::now();
+		Difference = After - Before;
+		std::cout << "Hypergraph time: " << std::chrono::duration<double,std::milli>(Difference).count() << std::endl;
 	}
 
 	virtual ~DrawTree() override
@@ -519,7 +532,7 @@ public:
 
 		Turtle.ExecuteCommands(Command,TreeSkeleton);
 
-		GenerateHypergraph DrawSkel;
+		GenerateHypergraph DrawSkel(20.0,0.75,0.75,10.0,5.0);
 		DrawSkel.Draw(TreeSkeleton,Hypergraph);
 	}
 
@@ -574,7 +587,7 @@ public:
 
 		Turtle.ExecuteCommands(Command,TreeSkeleton);
 
-		GenerateHypergraph DrawSkel;
+		GenerateHypergraph DrawSkel(20.0,0.75,0.75,10.0,5.0);
 		DrawSkel.Draw(TreeSkeleton,Hypergraph);
 	}
 
@@ -703,7 +716,7 @@ void DrawTreeMesh(TreeNode *skeleton,MultiMesh &mesh,GLuint texture)
 class DrawTreeFinished : public DrawDeterministicTree
 {
 private:
-	MultiMesh Mesh;
+	MultiMesh *Mesh;
 	GLuint Texture;
 	//
 public:
@@ -714,18 +727,18 @@ public:
 		LowPolyMeshGenerator GenerateMesh(Res_X,Res_Y);
 		GenerateMesh.Generate(Hypergraph,Mesh);
 	}
-	virtual ~DrawTreeFinished() override {}
+	virtual ~DrawTreeFinished() override {delete Mesh;}
 
 	virtual void Draw() override
 	{
-		DrawTreeMesh(TreeSkeleton,Mesh,Texture);
+		DrawTreeMesh(TreeSkeleton,*Mesh,Texture);
 	}
 };
 
 class DrawStochasticTreeFinished : public DrawStochasticTree
 {
 private:
-	MultiMesh Mesh;
+	MultiMesh *Mesh;
 	GLuint Texture;
 	//
 public:
@@ -736,11 +749,11 @@ public:
 		LowPolyMeshGenerator GenerateMesh(Res_X,Res_Y);
 		GenerateMesh.Generate(Hypergraph,Mesh);
 	}
-	virtual ~DrawStochasticTreeFinished() override {}
+	virtual ~DrawStochasticTreeFinished() override {delete Mesh;}
 
 	virtual void Draw() override
 	{
-		DrawTreeMesh(TreeSkeleton,Mesh,Texture);
+		DrawTreeMesh(TreeSkeleton,*Mesh,Texture);
 	}
 };
 
@@ -827,7 +840,7 @@ void onInitialization()
 	//std::cout << Command << std::endl;
 	//Turtle.ExecuteCommands(Command,DragonCurveSkeleton);
 
-	Turtle3D Turtle3(vec4(1.0,0.0,0.0),vec4(0.0,1.0,0.0),2.0,PI/2.0);
+	Turtle3D Turtle3(vec4(0.0,0.0,0.0),vec4(1.0,0.0,0.0),vec4(0.0,1.0,0.0),2.0,PI/2.0);
 
 	DOL_System HilbertCurve;
 
@@ -850,7 +863,7 @@ void onInitialization()
 	//std::cout << Command << std::endl;
 	//Turtle3.ExecuteCommands(Command,HilbertCurveSkeleton);
 
-	Turtle3 = Turtle3D(vec4(1.0,0.0,0.0),vec4(0.0,1.0,0.0),2.0,PI/2.0);
+	Turtle3 = Turtle3D(vec4(0.0,0.0,0.0),vec4(1.0,0.0,0.0),vec4(0.0,1.0,0.0),2.0,PI/2.0);
 
 	DOL_System Tree;
 
@@ -882,7 +895,7 @@ void onInitialization()
 
 	Turtle3.ExecuteCommands(Command,TreeSkeleton);
 
-	GenerateHypergraph DrawSkel;
+	GenerateHypergraph DrawSkel(20.0,0.75,0.75,10.0,5.0);
 	DrawSkel.Draw(TreeSkeleton,Hypergraph);
 
 	BarkTexId = SOIL_load_OGL_texture("SeamlessBark2.jpg",

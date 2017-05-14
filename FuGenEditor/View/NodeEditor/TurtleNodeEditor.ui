@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TurtleNodeEditor</class>
+ <widget class="QWidget" name="TurtleNodeEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>326</width>
+    <height>482</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLineEdit" name="DeltaDistance">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>20</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="DeltaAngle">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>60</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Delta distance</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>101</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Delta angle</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>101</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Axiom</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="Axiom">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>100</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="RecursionDepth">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>140</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>101</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Recursion depth</string>
+   </property>
+  </widget>
+  <widget class="QTableView" name="Productions">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>190</y>
+     <width>221</width>
+     <height>192</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>DeltaDistance</sender>
+   <signal>editingFinished()</signal>
+   <receiver>TurtleNodeEditor</receiver>
+   <slot>DeltaDistanceChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>176</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>DeltaAngle</sender>
+   <signal>editingFinished()</signal>
+   <receiver>TurtleNodeEditor</receiver>
+   <slot>DeltaAngleChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>176</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Axiom</sender>
+   <signal>editingFinished()</signal>
+   <receiver>TurtleNodeEditor</receiver>
+   <slot>AxiomChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>176</x>
+     <y>115</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>125</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>RecursionDepth</sender>
+   <signal>editingFinished()</signal>
+   <receiver>TurtleNodeEditor</receiver>
+   <slot>RecursionDepthChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>176</x>
+     <y>155</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>125</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>DeltaDistanceChanged()</slot>
+  <slot>DeltaAngleChanged()</slot>
+  <slot>AxiomChanged()</slot>
+  <slot>RecursionDepthChanged()</slot>
+ </slots>
+</ui>

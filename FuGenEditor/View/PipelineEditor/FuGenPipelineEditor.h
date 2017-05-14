@@ -5,11 +5,25 @@ class PipelineEditorLogic;
 
 #include <QtWidgets/QGraphicsView>
 #include <QKeyEvent>
+#include <QMouseEvent>
 
 #include "FuGenPipelineNode.h"
 #include "FuGenPipelineEdge.h"
 
 #include <list>
+
+class IPipelineModel
+{
+public:
+	virtual IPipelineNodeModel *SpawnNode() = 0;
+	virtual IPipelineEdgeModel *SpawnEdge(IPipelineNodeModel &begin_model,IPipelineNodeModel &end_model) = 0;
+	//
+	IPipelineModel()
+	{}
+	//
+	virtual ~IPipelineModel()
+	{}
+};
 
 class FuGenPipelineEditor : public QGraphicsView
 {
@@ -28,6 +42,8 @@ private:
 			//
 		public:
 			//
+			virtual void RemoveItself() = 0;
+			//
 			ListenerBase(PipelineEditorLogic &editor_logic)
 				:EditorLogic(editor_logic)
 			{}
@@ -45,6 +61,11 @@ private:
 			FuGenPipelineNode *PipelineNode;
 			//
 		public:
+			//
+			virtual void RemoveItself() override
+			{
+				PipelineNode->RemoveListener(this);
+			}
 			//
 			virtual void OnClicked() override
 			{
@@ -74,8 +95,8 @@ private:
 					{PipelineNode->RemoveListener(this);}
 			}
 			/*
-			* End of class
-			*/
+			 * End of class
+			 */
 		};
 		//
 		class PipelineEdgeListener : public ListenerBase, IPipelineEdgeListener
@@ -84,6 +105,12 @@ private:
 			FuGenPipelineEdge *PipelineEdge;
 			//
 		public:
+			//
+			virtual void RemoveItself() override
+			{
+				PipelineEdge->RemoveListener(this);
+			}
+			//
 			virtual void OnClicked() override
 			{
 				//
@@ -114,8 +141,8 @@ private:
 				}
 			}
 			/*
-			* End of class
-			*/
+			 * End of class
+			 */
 		};
 		//
 		enum PipelineEditorState
@@ -148,7 +175,20 @@ private:
 			if(EditorState == CONNECTING_MODE && SelectedNode != nullptr && SelectedNode != pipeline_node)
 			{
 				EditorState = EDIT_MODE;
-				PipelineEditor->AddEdge(SelectedNode,pipeline_node);
+				
+				if(PipelineEditor->Model != nullptr && SelectedNode->GetModel() != nullptr && pipeline_node->GetModel() != nullptr)
+				{
+					if(pipeline_node->GetModel()->IsConnectable(SelectedNode->GetModel()))
+					{
+						pipeline_node->GetModel()->Connect(SelectedNode->GetModel());
+						FuGenPipelineEdge *NewEdge = PipelineEditor->AddEdge(SelectedNode,pipeline_node);
+						NewEdge->SetModel(PipelineEditor->Model->SpawnEdge(*SelectedNode->GetModel(),*pipeline_node->GetModel()));
+					}
+				}
+				else
+				{
+					PipelineEditor->AddEdge(SelectedNode,pipeline_node);
+				}
 				SelectedNode = pipeline_node;
 				std::cout << "Connected!" << std::endl;
 			}
@@ -182,6 +222,7 @@ private:
 		{
 			for(ListenerBase *Listener : DeletableListeners)
 			{
+				Listener->RemoveItself();
 				delete Listener;
 			}
 			DeletableListeners.clear();
@@ -213,7 +254,7 @@ private:
 		{
 			NodeListeners.remove(deleted_listener);
 			DeleteListener(deleted_listener);
-			std::cout << "Deleted node" << std::endl;
+			std::cout << "Node deleted" << std::endl;
 		}
 		//
 		void OnEdgeAdded(FuGenPipelineEdge *new_edge)
@@ -226,7 +267,7 @@ private:
 		{
 			EdgeListeners.remove(deleted_listener);
 			DeleteListener(deleted_listener);
-			std::cout << "Deleted edge" << std::endl;
+			std::cout << "Edge deleted" << std::endl;
 		}
 		//
 		PipelineEditorLogic(FuGenPipelineEditor *pipeline_editor)
@@ -234,7 +275,21 @@ private:
 		{}
 		//
 		~PipelineEditorLogic()
-		{}
+		{
+			FreeDeletableListeners();
+			//
+			for(auto Listener : NodeListeners)
+			{
+				Listener->RemoveItself();
+				delete Listener;
+			}
+			//
+			for(auto Listener : EdgeListeners)
+			{
+				Listener->RemoveItself();
+				delete Listener;
+			}
+		}
 		/*
 		* End of class
 		*/
@@ -243,19 +298,28 @@ private:
 	PipelineEditorLogic *EditorLogic;
 	QGraphicsScene *PipelineScene;
 	//
+	IPipelineModel *Model = nullptr;
+	//
 protected:
 	//
 	virtual void keyPressEvent(QKeyEvent *Event) override;
 	//
 	virtual void keyReleaseEvent(QKeyEvent *Event) override;
 	//
+	virtual void mouseReleaseEvent(QMouseEvent *Event) override;
+	//
 	std::list<QGraphicsItem *> DeletableItems;
 	//
 public:
 	//
-	void AddNode(int x,int y);
+	void SetModel(IPipelineModel *model)
+	{
+		Model = model;
+	}
 	//
-	void AddEdge(FuGenPipelineNode *begin_node,FuGenPipelineNode *end_node);
+	FuGenPipelineNode *AddNode(int x,int y);
+	//
+	FuGenPipelineEdge *AddEdge(FuGenPipelineNode *begin_node,FuGenPipelineNode *end_node);
 	//
 	void DeleteItem(QGraphicsItem *deletable_item)
 	{

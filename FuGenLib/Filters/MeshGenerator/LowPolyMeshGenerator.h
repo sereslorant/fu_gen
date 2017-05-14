@@ -21,15 +21,36 @@ private:
 	//
 	void GenerateMultiThreaded(TreeHypergraph *tree_hypergraph,MultiMesh &result);
 	//
-public:
 	const float DELTA_UV = 0.15;
 	//
 	unsigned int SegmentWidth;
 	unsigned int SegmentHeight;
 	//
-	void Generate(TreeHypergraph *tree_hypergraph,MultiMesh &result);
-
-	LowPolyMeshGenerator(unsigned int segment_width,unsigned int segment_height)
+public:
+	//
+	void SetSegmentWidth(unsigned int segment_width)
+	{
+		SegmentWidth = segment_width;
+	}
+	//
+	void SetSegmentHeight(unsigned int segment_height)
+	{
+		SegmentHeight = segment_height;
+	}
+	//
+	unsigned int GetSegmentWidth()
+	{
+		return SegmentWidth;
+	}
+	//
+	unsigned int GetSegmentHeight()
+	{
+		return SegmentHeight;
+	}
+	//
+	void Generate(TreeHypergraph *tree_hypergraph,MultiMesh* &result);
+	//
+	LowPolyMeshGenerator(unsigned int segment_width = 6,unsigned int segment_height = 6)
 		:SegmentWidth(segment_width),SegmentHeight(segment_height)
 	{}
 

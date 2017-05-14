@@ -24,30 +24,68 @@ private:
 	GLuint MeshVertexShader;
 	GLuint MeshFragmentShader;
 	//
+	GLRenderer *SkeletonRenderer;
 	GLHypergraphRenderer *HypergraphRenderer;
 	GLRenderer *MeshRenderer;
 	//
 	enum VisualizerState
 	{
+		SHOW_SKELETON,
 		SHOW_HYPERGRAPH,
 		SHOW_MESH,
 	};
 	//
-	VisualizerState State = SHOW_MESH;
+	IGLRenderer *CurrentRenderer = nullptr;
 	//
 public:
 	//
+	void ChooseSkeleton()
+	{
+		std::cout << "Skeleton chosen" << std::endl;
+		//State = SHOW_SKELETON;
+		CurrentRenderer = SkeletonRenderer;
+	}
+	//
 	void ChooseHypergraph()
 	{
-		State = SHOW_HYPERGRAPH;
+		std::cout << "Hypergraph chosen" << std::endl;
+		//State = SHOW_HYPERGRAPH;
+		CurrentRenderer = HypergraphRenderer;
 	}
 	//
 	void ChooseMesh()
 	{
-		State = SHOW_MESH;
+		std::cout << "Mesh chosen" << std::endl;
+		//State = SHOW_MESH;
+		CurrentRenderer = MeshRenderer;
 	}
 	//
-	GLHypergraphRenderer &GetHypergraphRenderer()
+	void SetShowSplines(bool show_splines)
+    {
+        HypergraphRenderer->SetShowSplines(show_splines);
+    }
+	//
+	void SetShowCylinders(bool show_cylinders)
+    {
+        HypergraphRenderer->SetShowCylinders(show_cylinders);
+    }
+	//
+	IGLShaderProgram &GetSkeletonShaderProgram()
+	{
+		return *SkeletonRenderer;
+	}
+	//
+	IGLRenderer &GetSkeletonRenderer()
+	{
+		return *SkeletonRenderer;
+	}
+	//
+	IGLShaderProgram &GetHypergraphShaderProgram()
+	{
+		return HypergraphRenderer->GetCatmullRomRenderer();
+	}
+	//
+	IGLRenderer &GetHypergraphRenderer()
 	{
 		return *HypergraphRenderer;
 	}
@@ -76,6 +114,7 @@ public:
 	//
 	~GLEdgeVisualizer()
 	{
+		delete SkeletonRenderer;
 		delete HypergraphRenderer;
 		delete MeshRenderer;
 		//

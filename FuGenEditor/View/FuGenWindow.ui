@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>903</width>
     <height>600</height>
    </rect>
   </property>
@@ -22,60 +22,82 @@
       </property>
       <widget class="QWidget" name="widget_2" native="true">
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
+        <item row="1" column="0">
          <widget class="QSplitter" name="splitter_2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
-          <widget class="QWidget" name="widget" native="true"/>
+          <widget class="FuGenNodeEditor" name="NodeEditor">
+           <widget class="QWidget" name="stackedWidgetPage1"/>
+          </widget>
           <widget class="QWidget" name="widget_3" native="true">
            <layout class="QGridLayout" name="gridLayout_3">
             <item row="0" column="0">
-             <widget class="QSplitter" name="splitter_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <widget class="QListView" name="PipelineElementList"/>
-              <widget class="QScrollArea" name="scrollArea">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="widgetResizable">
-                <bool>true</bool>
-               </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents_2">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>0</y>
-                  <width>321</width>
-                  <height>439</height>
-                 </rect>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_4">
-                 <item row="0" column="0">
-                  <widget class="FuGenPipelineEditor" name="PipelineEditor">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <widget class="QComboBox" name="comboBox">
+                <item>
+                 <property name="text">
+                  <string>Turtle</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Hypergraph generator</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mesh generator</string>
+                 </property>
+                </item>
                </widget>
-              </widget>
-             </widget>
+              </item>
+              <item>
+               <widget class="QScrollArea" name="scrollArea">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="widgetResizable">
+                 <bool>true</bool>
+                </property>
+                <widget class="QWidget" name="scrollAreaWidgetContents_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>636</width>
+                   <height>436</height>
+                  </rect>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_4">
+                  <item row="0" column="0">
+                   <widget class="FuGenPipelineEditor" name="PipelineEditor">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
          </widget>
         </item>
        </layout>
+       <zorder>splitter_2</zorder>
+       <zorder></zorder>
+       <zorder>widget_3</zorder>
       </widget>
       <widget class="FuGenGLView" name="EdgeVisualizer" native="true"/>
      </widget>
@@ -87,8 +109,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>19</height>
+     <width>903</width>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -161,7 +183,33 @@
    <extends>QGraphicsView</extends>
    <header location="global">View/PipelineEditor/FuGenPipelineEditor.h</header>
   </customwidget>
+  <customwidget>
+   <class>FuGenNodeEditor</class>
+   <extends>QStackedWidget</extends>
+   <header location="global">View/NodeEditor/FuGenNodeEditor.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>FuGenWindow</receiver>
+   <slot>Slot_ChangeNodeType(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>299</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>Slot_ChangeNodeType(QString)</slot>
+ </slots>
 </ui>

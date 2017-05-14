@@ -247,6 +247,8 @@ public:
 	 */
 };
 
+//#define USE_OPEN_MESH_QUICKHULL
+
 void LowPolyMeshGenerator::GenerateJunctions(std::vector<Job *> &generate_segment_jobs,JobQueue &job_queue,TreeHypergraph *tree_hypergraph,MultiMesh &result)
 {
 	result.JunctionMeshes.clear();
@@ -259,14 +261,20 @@ void LowPolyMeshGenerator::GenerateJunctions(std::vector<Job *> &generate_segmen
 		result.JunctionMeshes.emplace_back();
 		MyMesh &JunctionMesh = result.JunctionMeshes.back();
 		//
-		//OMJunctionGenerator junctionGenerator(JunctionMesh,*J,SegmentWidth,SegmentHeight);
+#ifdef USE_OPEN_MESH_QUICKHULL
+		OMJunctionGenerator junctionGenerator(JunctionMesh,*J,SegmentWidth,SegmentHeight);
+#else
 		QhJunctionGenerator junctionGenerator(JunctionMesh,*J,SegmentWidth,SegmentHeight);
+#endif
 		//
 		//SampleJunction(*J,result,&JunctionMesh);
 		//junctionGenerator.SampleJunction();
 		//
-		//Job *sampleJunctionJob = job_queue.CreateJob<SampleJunctionJob<OMJunctionGenerator> >(0,nullptr,junctionGenerator);
+#ifdef USE_OPEN_MESH_QUICKHULL
+		Job *sampleJunctionJob = job_queue.CreateJob<SampleJunctionJob<OMJunctionGenerator> >(0,nullptr,junctionGenerator);
+#else
 		Job *sampleJunctionJob = job_queue.CreateJob<SampleJunctionJob<QhJunctionGenerator> >(0,nullptr,junctionGenerator);
+#endif
 		//
 		//sampleJunctionJob.Execute();
 		//
@@ -348,8 +356,11 @@ void LowPolyMeshGenerator::GenerateSingleThreaded(TreeHypergraph *tree_hypergrap
 		result.JunctionMeshes.emplace_back();
 		MyMesh &JunctionMesh = result.JunctionMeshes.back();
 		//
+#ifdef USE_OPEN_MESH_QUICKHULL
+		OMJunctionGenerator junctionGenerator(JunctionMesh,*J,SegmentWidth,SegmentHeight);
+#else
 		QhJunctionGenerator junctionGenerator(JunctionMesh,*J,SegmentWidth,SegmentHeight);
-		//OMJunctionGenerator junctionGenerator(JunctionMesh,*J,SegmentWidth,SegmentHeight);
+#endif
 		//
 		junctionGenerator.SampleJunction();
 		//
@@ -403,15 +414,22 @@ void LowPolyMeshGenerator::GenerateMultiThreaded(TreeHypergraph *tree_hypergraph
 	}
 }
 
-void LowPolyMeshGenerator::Generate(TreeHypergraph *tree_hypergraph,MultiMesh &result)
+//#define SINGLE_THREADED
+
+void LowPolyMeshGenerator::Generate(TreeHypergraph *tree_hypergraph,MultiMesh* &result)
 {
+	result = new MultiMesh;
+	//
 	std::cout << "Number of branches: " << tree_hypergraph->Branches.size() << "\n";
 	std::cout << "Number of junctions: " << tree_hypergraph->Junctions.size() << std::endl;
 	//
 	auto Before = std::chrono::steady_clock::now();
 	//
-	//GenerateSingleThreaded(tree_hypergraph,result);
-	GenerateMultiThreaded(tree_hypergraph,result);
+#ifdef SINGLE_THREADED
+	GenerateSingleThreaded(tree_hypergraph,*result);
+#else
+	GenerateMultiThreaded(tree_hypergraph,*result);
+#endif
 	//
 	auto After = std::chrono::steady_clock::now();
 	auto Difference = After - Before;

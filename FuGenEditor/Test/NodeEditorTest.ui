@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NodeEditorTest</class>
+ <widget class="QMainWindow" name="NodeEditorTest">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QToolBox" name="toolBox">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="page">
+        <attribute name="label">
+         <string>Page</string>
+        </attribute>
+        <widget class="QComboBox" name="comboBox">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>231</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <item>
+          <property name="text">
+           <string>TreeSkeleton</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TreeHypergraph</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TreeMesh</string>
+          </property>
+         </item>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="FuGenGLView" name="widget" native="true"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FuGenGLView</class>
+   <extends>QWidget</extends>
+   <header location="global">View/EdgeVisualizer/FuGenGLView.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>NodeEditorTest</receiver>
+   <slot>ComboBoxChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>131</x>
+     <y>93</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>ComboBoxChanged()</slot>
+ </slots>
+</ui>

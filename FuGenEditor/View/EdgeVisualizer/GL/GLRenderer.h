@@ -4,6 +4,8 @@
 #include "GLExt.h"
 #include "IGLRenderer.h"
 
+//#include <iostream>
+
 class GLRenderer : public IGLShaderProgram, public IGLRenderer
 {
 protected:
@@ -25,6 +27,7 @@ public:
 	//
 	virtual void SetDrawable(IGLDrawable *drawable) override
 	{
+		//std::cout << "New drawable: " << drawable << std::endl;
 		Drawable = drawable;
 	}
 	//

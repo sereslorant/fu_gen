@@ -110,8 +110,8 @@ void Turtle3D::ExecuteCommands(const std::string &commands,TreeNode *&tree_skele
 	}
 }
 
-Turtle3D::Turtle3D(const dvec4 &direction_h,const dvec4 &direction_l,double d_dist,double d_angle)
-	:TurtleBase(d_dist,d_angle,Turtle3DState(direction_h,direction_l))
+Turtle3D::Turtle3D(const dvec4 &position,const dvec4 &direction_h,const dvec4 &direction_l,double d_dist,double d_angle)
+	:TurtleBase(d_dist,d_angle,Turtle3DState(position,direction_h,direction_l))
 {
 	//
 }

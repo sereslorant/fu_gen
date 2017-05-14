@@ -40,7 +40,7 @@ public:
 		Radius = radius;
 	}
 	//
-	GLGeneralizedCylinder(vec4 vertex_array[],unsigned int num_vertices,IGLShaderProgram &renderer)
+	GLGeneralizedCylinder(void *vertex_array,unsigned int num_vertices,IGLShaderProgram &renderer)
 		:GLCatmullRom(vertex_array,num_vertices,renderer)
 	{}
 	//
@@ -67,14 +67,14 @@ public:
 		return CatmullRomRenderer;
 	}
 	//
-	void SwitchSplines()
+	void SetShowSplines(bool show_splines)
 	{
-		ShowSplines = !ShowSplines;
+		ShowSplines = show_splines;
 	}
 	//
-	void SwitchClyinders()
+	void SetShowCylinders(bool show_cylinders)
 	{
-		ShowClyinders = !ShowClyinders;
+		ShowClyinders = show_cylinders;
 	}
 	//
 	virtual void SetDrawable(IGLDrawable *drawable) override
@@ -85,15 +85,18 @@ public:
 	//
 	virtual void Draw() override
 	{
+		std::cout << "BeforeSplines: " << glGetError() << std::endl;
 		if(ShowSplines)
 		{
 			CatmullRomRenderer.Draw();
 		}
+		std::cout << "BeforeCylinders: " << glGetError() << std::endl;
 		//
 		if(ShowClyinders)
 		{
 			CylinderRenderer.Draw();
 		}
+		std::cout << "AfterCylinders: " << glGetError() << std::endl;
 	}
 	//
 	GLHypergraphRenderer(GLuint catmull_rom_shader[],unsigned int catmull_rom_count

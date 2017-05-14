@@ -14,6 +14,29 @@ public:
 	{}
 };
 
+class FuGenPipelineNode;
+
+#include <string>
+
+class IPipelineNodeModel
+{
+public:
+	//
+	virtual const std::string &GetName() = 0;
+	//
+	virtual void *GetUserData() = 0;
+	//
+	virtual void SetPipelineNode(FuGenPipelineNode *pipeline_node) = 0;
+	//
+	virtual bool IsConnectable(IPipelineNodeModel *other_model) = 0;
+	virtual bool Connect(IPipelineNodeModel *other_model) = 0;
+	//
+	IPipelineNodeModel()
+	{}
+	virtual ~IPipelineNodeModel()
+	{}
+};
+
 #include <QGraphicsEllipseItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
@@ -25,7 +48,8 @@ public:
 class FuGenPipelineNode : public QGraphicsEllipseItem
 {
 private:
-	QString NodeLabel = "Pipeline node text";
+	//QString NodeLabel = "Pipeline node text";
+	IPipelineNodeModel *NodeModel = nullptr;
 	//
 	std::list<IPipelineNodeListener *> Listeners;
 	//
@@ -38,6 +62,17 @@ protected:
 	virtual void paint(QPainter *painter,const QStyleOptionGraphicsItem *option,QWidget *widget) override;
 	//
 public:
+	//
+	void SetModel(IPipelineNodeModel *new_model)
+	{
+		NodeModel = new_model;
+		NodeModel->SetPipelineNode(this);
+	}
+	//
+	IPipelineNodeModel *GetModel()
+	{
+		return NodeModel;
+	}
 	//
 	QPointF GetCenter();
 	//

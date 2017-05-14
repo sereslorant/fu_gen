@@ -4,31 +4,24 @@
 
 #include "PipelineEditor/FuGenPipelineNode.h"
 
-void SetupDemoPipelineEditor(FuGenPipelineEditor *PipelineEditor)
-{
-	PipelineEditor->setMinimumSize(QSize(350,350));
-	//PipelineEditor->setAcceptDrops(true);
-	//
-	PipelineEditor->AddNode(160,150);
-	PipelineEditor->AddNode(20,20);
-	PipelineEditor->AddNode(60,100);
-	PipelineEditor->AddNode(100,130);
-	PipelineEditor->AddNode(60,140);
-	PipelineEditor->AddNode(60,150);
-};
-
 FuGenWindow::FuGenWindow()
+	:ViewListener(this)
 {
 	Ui::FuGenWindow Ui;
 	Ui.setupUi(this);
 	//
+	PipelineEditor		= Ui.PipelineEditor;
+	NodeEditor			= Ui.NodeEditor;
 	EdgeVisualizer		= Ui.EdgeVisualizer;
-	PipelineElementList	= Ui.PipelineElementList;
+	//PipelineElementList	= Ui.PipelineElementList;
 	//
-	SetupDemoPipelineEditor(Ui.PipelineEditor);
+	EdgeVisualizer->AddListener(&ViewListener);
 }
 
 FuGenWindow::~FuGenWindow()
-{}
+{
+	delete PipelineEditor;
+	//delete EditorListener;
+}
 
 #include "FuGenWindow.moc"

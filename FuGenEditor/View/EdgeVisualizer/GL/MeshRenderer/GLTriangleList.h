@@ -25,7 +25,7 @@ protected:
 public:
 	//
 	GLTriangleList(vec4 vertex_array[],unsigned int num_triangles,IGLShaderProgram &renderer)
-		:GLPrimitiveList(vertex_array,num_triangles * 3,renderer)
+		:GLPrimitiveList(vertex_array,num_triangles * 3,sizeof(vec4),renderer)
 	{
 		//
 	}

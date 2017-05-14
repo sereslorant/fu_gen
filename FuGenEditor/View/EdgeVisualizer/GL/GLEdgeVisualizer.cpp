@@ -225,12 +225,17 @@ void GLEdgeVisualizer::Initialize()
 	MeshVertexShader = CompileShader(MeshVertexShaderSource,GL_VERTEX_SHADER);
 	MeshFragmentShader = CompileShader(MeshFragmentShaderSource,GL_FRAGMENT_SHADER);
 	//
+	GLuint SkeletonShaders[2] = {MeshVertexShader,MeshFragmentShader};
+	SkeletonRenderer = new GLRenderer(SkeletonShaders,2);
+	//
 	GLuint CRShaders[4] = {VertexShader,GSHermite,CatmullRomShader,FragmentShader};
 	GLuint CyliShaders[4] = {VertexShader,GSHermite,CylinderShader,FragmentShader};
 	HypergraphRenderer = new GLHypergraphRenderer(CRShaders,4,CyliShaders,4);
 	//
 	GLuint MeshShaders[2] = {MeshVertexShader,MeshFragmentShader};
 	MeshRenderer = new GLRenderer(MeshShaders,2);
+	//
+	CurrentRenderer = MeshRenderer;
 }
 
 void GLEdgeVisualizer::Draw()
@@ -239,8 +244,13 @@ void GLEdgeVisualizer::Draw()
 	//
 	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 	//
+	/*
 	switch(State)
 	{
+	case SHOW_SKELETON:
+		SkeletonRenderer->Draw();
+		break;
+		//
 	case SHOW_HYPERGRAPH:
 		HypergraphRenderer->Draw();
 		break;
@@ -249,6 +259,8 @@ void GLEdgeVisualizer::Draw()
 		MeshRenderer->Draw();
 		break;
 	}
+	*/
+	CurrentRenderer->Draw();
 }
 
 #include <iostream>

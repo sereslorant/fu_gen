@@ -14,7 +14,7 @@ public:
 	//
 	void ExecuteCommands(const std::string &commands,TreeNode *&tree_skeleton);
 	//
-	Turtle3D(const dvec4 &direction_h,const dvec4 &direction_l,double d_dist,double d_angle);
+	Turtle3D(const dvec4 &position,const dvec4 &direction_h,const dvec4 &direction_l,double d_dist,double d_angle);
 	//
 	~Turtle3D()
 	{

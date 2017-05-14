@@ -11,6 +11,8 @@ class IGLViewListener
 public:
 	virtual void OnInitialization() = 0;
 	//
+	virtual void OnDraw() = 0;
+	//
 	IGLViewListener()
 	{}
 	//
@@ -31,7 +33,7 @@ private:
 	//
 	GLEdgeVisualizer EdgeVisualizer;
 	//
-	IGLViewListener *Listener = nullptr;
+	std::list<IGLViewListener *> Listeners;
 	//
 protected:
 	//
@@ -43,7 +45,7 @@ public:
 	//
 	void AddListener(IGLViewListener *listener)
 	{
-		Listener = listener;
+		Listeners.push_back(listener);
 	}
 	//
 	GLEdgeVisualizer &GetEdgeVisualizer()
