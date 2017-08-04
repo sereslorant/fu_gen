@@ -1,6 +1,8 @@
 #ifndef DRAW_MODEL_H
 #define DRAW_MODEL_H
 
+#include "GLInclude.h"
+
 #include <iostream>
 
 #include <Data/TreeHypergraph.h>
